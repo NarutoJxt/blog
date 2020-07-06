@@ -1,0 +1,74 @@
+.search-aside{
+    float: left;
+    position: absolute;
+    left: 200px;
+    width: 250px;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.serach-aside>ul>li:first-child{
+    margin-top: 40px;
+}
+.search-aside > ul>li,#search-user>ul>li{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    height: auto;
+    color: grey;
+    text-space: 5px;
+}
+.search-aside>ul>li{
+      clear: both;
+       width: 400px;
+        padding-right: 50px;
+        font-size: 25px;
+}
+#search-user{
+ position: relative;
+    min-height: 60px;
+}
+.search-raside{
+    position: relative;
+    left:15%;
+    top: 10px;
+    width: 70%;
+    margin-left: 20px;
+    height: 100%;
+}
+#search-user>ul>li,#search-article>ul>li{
+    border-bottom-color: lightgrey;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    width: 80%;
+    height: 200px;
+}
+#search-user>ul>li:last-child{
+    margin-bottom: 50px;
+}
+.search-aside>ul>li:hover{
+    background-color: lightgrey;
+}
+.search-aside>ul>li:active{
+    background-color: lightgrey;
+}
+.user-name{
+    font-size: 30px;
+    font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+    color: black;
+    margin-left: 5px;
+}
+.results-empty{
+  position: relative;
+  left: 30%;
+    top:200px;
+  font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+  font-size: 30px;
+    color: grey;
+}
+.page-bottom{
+    position: relative;
+    top: 100px;
+    left: 35%;
+    font-size: 25px;
+    margin-bottom: 40px;
+}

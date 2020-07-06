@@ -1,0 +1,303 @@
+body{
+    width: 100%;
+    background-color: #F0F0F0;
+}
+.left{
+    position: fixed;
+    top: 40%;
+    left: 5%;
+}
+.mid{
+    position: relative;
+    left: 12.5%;
+    bottom: 1%;
+    width: 58%;
+    height: auto;
+}
+.right-sidebar {
+    position: absolute;
+    left: 71%;
+    top:100px;
+  display: block;
+    width: 20%;
+}
+.thumb-up {
+    position: absolute;
+    top: 200px;
+    left: 3%;
+    width: 5%;
+}
+.title-font {
+    font-family: "Segoe MDL2 Assets";
+    font-size: 20px;
+}
+.dropdown-menu > li{
+    padding: 50px;
+    border: none;
+}
+
+.article-side > li {
+    clear: both;
+    padding: 20px;
+}
+
+.article-side > li > a {
+    text-decoration-line: none;
+    color: red;
+}
+
+.author-info {
+    position: relative;
+    left: 80px;
+    bottom: 15px;
+}
+
+.author-info > span {
+    margin-left: 5px;
+}
+.edit-article{
+    position: relative;
+    bottom: 163px;
+    left: 90%;
+}
+.edit-article>a{
+    color: #bfbfbf;
+}
+.article-main {
+    width: 100%;
+    height: auto;
+    background-color: white;
+    padding: 30px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black;
+    margin-bottom: 15px;
+}
+.article-body-content{
+    height: auto;
+
+}
+.article-body-content>div p{
+    font-size: 20px;
+    font-family: apple-system,BlinkMacSystemFont,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 30px;
+    height: auto;
+    vmargin-left: 30px;
+}
+.article-body-content>div p img{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.title {
+    margin-left: 10px;
+    font-family: Sans-Serif;
+    font-size: 40px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    vertical-align: middle;
+    width: 85%;
+    text-wrap: avoid;
+}
+
+.article-main > ul {
+    margin-left: 40px;
+}
+
+.article-content {
+    margin-top: 50px;
+    margin-left: 60px;
+    padding-bottom: 30px;
+}
+.article-footer{
+    width: 80%;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    margin-top: 12px;
+    margin-left: 25px;
+}
+.article-footer >ul> li{
+    float: left;
+}
+.navpre-right {
+    display: flex;
+    width: 200px;
+    margin: -20px 0 0 650px;
+}
+
+.center-form {
+    position: relative;
+    left: 60px;
+    top: 10px;
+    width: 500px;
+}
+.center-form >p> textarea{
+    background-color: #F9F9F9;
+    width: 600px;
+    color: black;
+    font-size: 20px;
+    font-weight: lighter;
+    margin-bottom: 15px;
+}
+
+.left_image {
+    position: absolute;
+    left: 2px;
+
+}
+.author-self {
+    padding-bottom: 30px;
+    border-bottom-width: 2px;
+    border-bottom-color: #F0F0F0;
+    border-bottom-style: groove
+}
+
+.re-article {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    width: 350px;
+    height: auto;
+    border-width: 1px;
+    border-style: initial;
+    padding: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 250px;
+}
+
+.author {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    min-width: 350px;
+    width: auto;
+    height: auto;
+    border-width: 1px;
+    border-style: initial;
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-right: 250px;
+}
+
+.re-article > ul > li {
+    clear: both;
+    margin: 5px;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.author > ul > li {
+    clear: both;
+    margin: 5px;
+    padding: 5px;
+    font-size: 20px;
+}
+
+.side-bar-recommended > li {
+    clear: both;
+    margin: 10px 0;
+}
+
+.comment{
+    display: block;
+    height: auto;
+    width: 100%;
+    padding-bottom: 100px;
+    background-color: white;
+}
+.comment > ul > li{
+    float: none;
+    padding: 10px;
+    margin-left: 100px;
+    margin-top: 30px;
+    margin-right: 80px;
+    border-bottom-width: 1px;
+    border-bottom-color: lightgrey;
+    border-bottom-style: solid;
+}
+.comment > ul > li:first-child{
+    border: none;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.comment-header{
+    display: block;
+    max-width: 100%;
+    width: 90%;
+    padding: 20px;
+}
+.comment-content{
+    position: relative;
+    left: 110px;
+    top: -20px;
+    display: inline;
+    font-size: 20px;
+    font-family: "Times New Roman";
+}
+.comment-btn{
+    width: 70px;
+    border-radius: 40px;
+    height: 40px;
+    margin-top: 10px;
+    background-color: #df7366;
+    border: none;
+}
+.author-name {
+    font-size: 25px;
+}
+.reply{
+    position: relative;
+    left: 80px;
+    display: block;
+    background-color: #F8F8F8;
+    max-width: 100%;
+    width: 90%;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.reply-info{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    border-bottom-color: lightgrey;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+.reply-header{
+
+    font-max-size: 35px;
+    font-size: 20px;
+    display: inline;
+    line-height: 1.0;
+}
+.reply-content{
+    position: relative;
+    display: inline;
+    font-size: 20px;
+    font-family: "Times New Roman",Times,serif;
+}
+.reply-content>p{
+    display: inline;
+}
+.reply-footer{
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.reply-footer:first-child{
+    border: none;
+}
+.appeal{
+    width: 450px;
+    height: 550px;
+    background-color: white;
+    border: black;
+    padding: 50px;
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    z-index: 3;
+}

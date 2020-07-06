@@ -1,0 +1,26 @@
+{% load static %}
+{% load cache %}
+{% cache 1060000 footers %}
+<div class="footers">
+    <ul>
+        <li>
+            <ul>
+                <li><a href="http://www。baidu.com">关于本站</a></li>
+                <li><a href="http://www。baidu.com">加入我们</a></li>
+                <li><a href="http://www。baidu.com">联系我们</a></li>
+                <li><a href="http://www。baidu.com">相关网址</a></li>
+            </ul>
+        </li>
+        <li>
+            <ul>
+                <li><a href="http://www。baidu.com">网站源码</a></li>
+                <li><a href="http://www。baidu.com">网站投诉</a></li>
+                <li><a href="http://www。baidu.com">相关书籍</a></li>
+                <li><a href="http://www。baidu.com">python进阶</a></li>
+            </ul>
+        </li>
+
+    </ul>
+
+</div>
+{% endcache %}

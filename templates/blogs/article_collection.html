@@ -1,0 +1,4 @@
+{% extends "blogs/article_index.html" %}
+{% block empty %}
+    <p style="color: red">您还没有文章，前往<a href="{% url 'blog:index' %}">首页</a>收藏您喜爱的文章吧</p>
+{% endblock empty %}

@@ -1,0 +1,139 @@
+.user-mame{
+    font-size: 30px;
+    padding-left: 25px;
+    font-weight: bold;
+    padding-right: 300px;
+}
+.user-info{
+    position: relative;
+    left: 180px;top: -30px;
+}
+
+.person-head{
+    margin-top: 50px;
+    width: 700px;
+}
+.article>li{
+    clear: both;
+}
+.person{
+    margin-left: 200px;
+}
+.person-body{
+    margin-top: 30px;
+    width: 800px;
+    height: 70px;
+
+}
+.person-body>ul>li{
+    float: left;
+    height: 60px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.person-body>ul>li:hover{
+    background-color: lightgrey;
+}
+.person-body>ul>li>a{
+    text-decoration-line: none;
+}
+.person-body>ul>li>a:hover{
+    color: black;
+}
+.person-latest,.person-attention,.person-article,.person-fans,.person-collection{
+    padding-right: 50px;
+    font-size: 20px;
+}
+.clicking{
+    border-bottom: solid;
+    border-bottom-width: 3px;
+    border-bottom-color: black;
+}
+.peron-footer>ul>li{
+    clear: both;
+    padding: 20px 0;
+    border-bottom-style: dotted;
+    border-bottom-color: #999999;
+    border-bottom-width: 1px;
+    width: 800px;
+    height: 200px;
+}
+.person-sidebar{
+    margin-left: 150px;
+    margin-top: 90px;
+}
+.person-sidebar>li{
+    width: 100%;
+    height: auto;
+    padding-bottom: 50px;
+    padding-top: 20px;
+    border-bottom-width: 3px;
+    border-bottom-style: dashed;
+    border-bottom-color: #F0F0F0;
+}
+.draft-title, .collection-title{
+    padding-bottom: 15px;
+}
+.person-draft>li,.person-love>li{
+    padding: 8px 0;
+    font-size: 15px;
+    font-family: "Lucida Bright";
+}
+.person-draft>li>a,.person-love>li>a{
+    text-decoration-line: none;
+    border: none;
+    font-size: 20px;
+}
+.person-signature {
+    margin-top: 20px
+}
+.no-signature{
+    clear: both;
+    margin-right: 20px;
+}
+.show-signature{
+     margin-right: 20px;
+    font-size:20px ;
+    font-family: "KaiTi";
+}
+.person-header-article{
+    margin-bottom: 20px;
+}
+.person-header-article>a{
+    font-family: -apple-system,SF UI Display,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+    font-size: 25px;
+    color: black;
+    margin-bottom: 20px;
+}
+.person-body-article>p{
+    width: 60%;
+    text-align: justify;
+    line-height: 25px;
+    font-size: 17px;
+    margin-bottom: 20px;
+}
+.person-footer-article{
+    width: 60%;
+    height: 20px;
+    position: relative;
+    left: -10px;
+    margin-bottom: 20px;
+}
+.person-footer-article>ul>li{
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    font-size: 18px;
+}
+.person-footer-article>ul>li:last-child{
+    padding-bottom: 10px;
+}
+.forbid-access{
+    position: absolute;
+    left: 600px;
+    top: 300px;
+    width: 350px;
+    font-size: 30px;
+}

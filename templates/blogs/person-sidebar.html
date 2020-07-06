@@ -1,0 +1,50 @@
+{% load static %}
+{% load blog_tags %}
+<ul class="person-sidebar">
+
+    <li style="clear: both">
+        <h4 style="padding-bottom: 30px">个人签名</h4>
+        {% if not user.signature %}
+            <span class="no-signature">暂无签名</span>
+            {% else %}
+            <span class="show-signature">{{user.signature}}</span>
+
+        {% endif %}
+        {% if result %}
+        <a class="show-form">编辑</a>
+        {% endif %}
+        <form class="person-signature" action="{% url 'account:editSignature' %}" method="post">
+            <textarea name="signature" rows="5" cols="50" class="form-control">
+                {{ user.signature }}
+            </textarea><br />
+            <button type="submit" class="btn btn-primary-mktg">保存</button>
+            <button type="button" id="cancel" class="btn btn-default">取消</button>
+        </form>
+    </li>
+    <li style="clear: both">
+        <h4 class="collection-title">喜欢的文章</h4>
+        <ul class="person-love">
+            {% for collection in collections %}
+                <li>
+                    <a href="{{ collection.collected_article.get_absolute_url }}">《{{ collection.collected_article.title }}</a>》 时间:{{ collection.collected_time }}
+                </li>
+            {% empty %}
+                <li>您还没有打草稿的习惯</li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li style="clear: both">
+        <h4 class="draft-title">草稿箱</h4>
+        <ul class="person-draft">
+            {% for draft in drafts %}
+                <li>
+                    <a href="{{ draft.get_absolute_url }}">《{{ draft.title }}</a>》 时间:{{ draft.pub_time }}
+                </li>
+            {% empty %}
+                <li>您还没有打草稿的习惯</li>
+            {% endfor %}
+        </ul>
+    </li>
+
+
+</ul>

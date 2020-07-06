@@ -1,0 +1,142 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load account_tags %}
+{% load blog_tags %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/attention.css' %}">
+
+{% endblock header %}
+{% block content %}
+    <div class="aside">
+        <ul>
+            <li id="friend-loop">
+                <a href="{% url 'account:friend_loop' %}">
+                    <img src="{% static 'image/design/attention/friends.png' %}">朋友圈
+                </a>
+            </li>
+            {% for follower in follower_list %}
+                <li>
+                    <a class="author-name" href="{% url 'account:friend_loop' %}?username={{ follower.username }}">
+                        <img style="border-radius: 70%" class="img-circle profile-img" width="80" height="100px"
+                             id="showImg"
+                             src="{{ follower.head_path|toString }}" alt="">
+                        {{ follower.username }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="raside">
+        <ul class="attention">
+            {% if type == 1 %}
+                <li class="raside-title" style="width: 100%;border-bottom-color: black;
+       border-bottom-width: 1px;
+    border-bottom-style: groove;">全部文章
+                </li>
+            {% elif type == 2 %}
+                <li style="width: 100%;border-bottom-color: black;
+       border-bottom-width: 1px;
+    border-bottom-style: groove;">
+                    <div class="attention-head">
+                        <img class="img-circle profile-img" width="150px" height="120px"
+                             src="{{ author.head_path|toString }}" alt="">
+                        <span class="user-mame">{{ author }}</span>
+                             {% if is_show %}
+                    {% if author not in follower_list  %}
+            <a class="author-follow" id="{{ author.username|connect:"-follow" }}" style="margin-left: 50px;text-decoration-line: none;color: orangered">
+                <img src="{% static 'image/design/attention.png' %}">
+                <i>关注</i>
+            </a>
+                        {% else %}
+             <a class="author-follow" style="margin-left: 50px;text-decoration-line: none;color: orangered" id="{{ author.username|connect:'-follower' }}">
+                <img  src="{% static 'image/design/attented.png' %}">
+                <i>已关注</i>
+            </a>
+                        {% endif %}
+                {% endif %}
+                        <p class="user-info">
+                            <span>写了{{ character_count }}字，</span>
+                            <span>有{{ collection_count }}人喜欢</span>
+                        </p>
+                    </div>
+                </li>
+            {% endif %}
+            <div class="article-main-body">
+                <ul>
+                    {% for article in object_list %}
+                        <li>
+                            <div class="article-left-person">
+                                <ul>
+                                    <li>
+                                        <div class="article-header-person">
+                                            <a href="{{ article.get_absolute_url }}">{{ article.title }}</a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="article-body-person">
+                                            <p>
+                                                {{ article.body|get_text|truncatechars:100|safe }}
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="article-footer-person">
+                                            <ul>
+                                                <li>
+                                                    <img src="{% static 'image/design/article_collectio.png' %}"
+                                                         style="padding-left: 0">
+                                                    <span> {{ article.comment_set.count }}</span>
+                                                </li>
+                                                <li>
+                                                    <img src="{% static 'image/design/点赞 (5).png' %}"> {{ article.thumb_up }}
+                                                </li>
+                                                <li>
+                                                    <img src="{% static 'image/design/评论 (3).png' %}">
+                                                    <span> {{ article.comment_set.count }}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="article-right-person">
+                                {% if article.body|get_img %}
+                                    <img src=" {{ article.body|get_img }}" style="max-width: 250px" width="250px"/>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li style="position:relative;top:90%;left:30%;font-size:30px;border: none">
+                            {% if type == 1 %}
+                                {% if follower_list %}
+                                    <p>您关注的用户未发表任何文章</p>
+                                {% else %}
+                                    <p>您还没有关注任何用户</p>
+                                {% endif %}
+                            {% elif type == 2 %}
+                                <p>您关注的用户未发表任何文章</p>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                    {% if object_list %}
+                        <li class="load-btn">
+                            {% if page_obj.has_next %}
+
+                                <button type="button"
+                                        style="background-color: darkorange;width: 90%;height: 50px;
+                                border-radius: 40px;margin-left: 30px;color: white"
+                                        onclick="loadMore({{ page_obj.next_page_number }},this,'account/friend_loop/','{{ username }}')">
+                                    加载更多
+                                </button>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </ul>
+
+    </div>
+        <script src="{% static 'js/attention.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+{% endblock content %}

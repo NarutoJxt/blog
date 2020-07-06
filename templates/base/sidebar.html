@@ -1,0 +1,53 @@
+{% load static %}
+{% load blog_tags %}
+<div class="side">
+<div class="re-article">
+    <ul>
+        <li style="font-size: 30px;padding: 10px;margin: 10px"> <img src="{% static 'image/design/阅读.png' %}"> 推荐阅读</li>
+        {% for article in recommended_list %}
+            <li>
+                <ul class="side-bar-recommended">
+                <li>
+                    <a style="color:#404040;text-decoration-line: none" href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:15 }}</a>
+                </li>
+                    <li>
+                        <span style="color: #999999">阅读：{{ article.views }}</span>
+                    </li>
+                </ul>
+            </li>
+            {% empty %}
+            <div style="margin: 70px;padding-top: 20px">
+                <h3>暂无文章发表</h3>
+            </div>
+        {% endfor %}
+    </ul>
+
+</div>
+<div class="author">
+    <ul>
+        <li style="font-size: 30px;padding: 10px;margin: 10px"> <img src="{% static 'image/design/头像.png' %}"> 推荐作者</li>
+        {% for author in author_list %}
+        <li style="width: 400px;margin:0">
+            <img style="border-radius: 70%" class="img-circle profile-img"    width="80" height="100px" id="showImg" src="{{  author.head_path|toString }}" alt="">
+            <a class="author-name" href="{{ author.get_absolute_url }}?username={{ author.username }}">{{ author.username}}</a>
+                       {% if author|check_follower:follower_list %}
+            <a class="author-follow" id="{{ author.username|connect:"-follow" }}" style="margin-left: 50px;text-decoration-line: none;color: orangered">
+                <img src="{% static 'image/design/attention.png' %}">
+                <i>关注</i>
+            </a>
+                        {% else %}
+             <a class="author-follow" style="margin-left: 50px;text-decoration-line: none;color: orangered" id="{{ author.username|connect:'-follower' }}">
+                <img  src="{% static 'image/design/attented.png' %}">
+                <i>已关注</i>
+            </a>
+                        {% endif %}
+            <p style="margin-left: 70px;margin-top: 5px">收藏：{{ author.collection.count }}| 发表：{{ author.article.count }}</p>
+        </li>
+            {% empty %}
+                 <div style="margin: 70px;padding-top: 20px">
+                <h3>暂无可推荐的用户</h3>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+</div>

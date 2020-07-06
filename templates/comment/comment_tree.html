@@ -1,0 +1,24 @@
+{% load comment_tag %}
+{% load static %}
+{% for comment in comments %}
+    <div class="reply-info">
+    <div class="reply-header">
+        <span style="display: none">{{ comment.id }}</span>
+        <a style="color: darkseagreen;text-decoration: none"
+           href="{{ comment.author.get_absolute_url }}?username={{ comment.author }}">{{ comment.author }}</a>
+        回复：<a href="{{ comment.parent_comment.author.get_absolute_url }}?username={{ comment.parent_comment.author }}" style="color: #FF9933;text-decoration: none">{{ comment.parent_comment.author }}</a>
+    </div>
+    <div class="reply-content">
+        {{ comment|safe }}
+    </div>
+    <div class="reply-footer">
+        <span style="margin-right: 400px; font-family: 'Times New Roman';font-size: 20px;">{{ comment.pub_time }}</span>
+        <button class="replyComment_tree" style="padding:0;background-color: #F0F0F0">
+            <img src="{% static 'image/design/comment(5).png' %}">
+        </button>
+    </div>
+    </div>
+    {% if comment_dict|judge_empty:comment %}
+        {% get_comment_tree comment comment_dict %}
+    {% endif %}
+{% endfor %}

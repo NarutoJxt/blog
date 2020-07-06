@@ -1,0 +1,186 @@
+{% load static %}
+{% load static %}
+{% load blog_tags %}
+{% load comment_tag %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <link rel="stylesheet" href="{% static 'css/mainblog/index.css' %}">
+   <link rel="stylesheet" href="{% static 'css/article.css' %}">
+    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mainblog/detail.css' %}" xmlns="http://www.w3.org/1999/html">
+
+    {% block header %}
+         <script src="{% static 'js/search.js' %}"></script>
+    {% endblock %}
+</head>
+<body>
+<div class="container-main">
+    <div class="header">
+        {% load_head request request.user %}
+    </div>
+    <div class="left">
+        <ul class="article-side">
+            <li><a id="thumb">
+                <img src="{% static 'image/design/点赞 (8).png' %}" width="54px" height="54px">
+                <span style="font-size: 25px">(<span>{{ article.thumb_up }}</span>)</span>
+            </a>
+            </li>
+            <li>
+                <a id="collection">
+                {% if is_collected %}
+                    <img src="{% static 'image/design/collection(11).png' %}" width="54px" height="54px">
+                {% else %}
+                    <img src="{% static 'image/design/collection(10).png' %}" width="54px" height="54px">
+                {% endif %}
+                <span style="font-size: 25px">(<span>{{ article.article.count }}</span>)</span>
+
+            </a>\
+            </li>
+        </ul>
+    </div>
+    <div class="mid">
+        <div class="article-main">
+            <h2 class="title">{{ article.title }}</h2>
+            <span id="get_article_id" style="display: none">{{ article.id }}</span>
+            <div style="margin-bottom: 20px">
+                <div class="article-head">
+                    <img style="border-radius: 50%" width="100px"
+                         id="showImg" src="{{ article.author.head_path|toString }}" alt="">
+                    <span class="author-name">{{ article.author }}</span>
+                    <p class="author-info">
+                        <span>{{ article.pub_time }}</span>
+                        <span>阅读：{{ article.views }}人</span>
+                        <span>收藏：{{ article.collection_set.count }}ren</span>
+                    </p>
+                    {% if request.user.username == article.author.username %}
+                    <div class="edit-article">
+                        <a href="{% url 'blog:updateArticle' article.pk %}?pk={{ article.pk }}&type=update">
+                            <img src="{% static 'image/blog/article_detail/edit.png' %}">
+                            <span>编辑</span>
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                <div style=";clear: both;height: auto;margin-left: 40px" class="article-body-content">
+                    <div style="background-color: white;border: none;word-break: break-word">
+                        {{ article.body|safe }}
+                    </div>
+                </div>
+                <div class="article-footer">
+                    <ul>
+                        <li>
+                            <div id="thumb-up">
+                                <img src="{% static 'image/design/点赞 (4).png' %}">
+                                点 赞： {{ article.thumb_up }}人>>
+                            </div>
+                        </li>
+                        <li>
+                            <div id="comment">
+                                <img src="{% static 'image/design/comment(5).png' %}">
+                            </div>
+                        </li>
+                        <li style="position: relative;left: 90%;">
+                        <button onclick="showAppeal()" type="button" style="color: #cdcdcd;background-color: white;border: none;outline: none" href="{% url 'blog:updateArticle' article.pk %}?pk={{ article.pk }}&type=update">
+                            <img src="{% static 'image/blog/article_detail/appeal.png' %}">
+                            <span>申诉</span>
+                        </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="comment">
+            <ul>
+                <li>
+                    <h2><img src="{% static 'image/design/beautifulComment.png' %}"> &nbsp;精彩评论</h2>
+                </li>
+                {% for comment in header %}
+                    <li>
+                        <div class="comment-header">
+                            <span style="display: none">{{ comment.id }}</span>
+                            <a href="{{ comment.author.get_absolute_url }}">
+                                <img style="border-radius: 60%" class="img-circle profile-img" width="80"
+                                     height="100px"
+                                     id="showImg" src="{{ comment.author.head_path|toString }}" alt="">
+                            </a>
+                            <span style="position: relative;top: -20px;color:orange;left:2px;font-size: 20px">
+                                    {{ comment.author }}
+                                </span>
+                            <div style="position: relative;top: -40px;left:90px;font-size: 25px;line-height:1.5;">
+
+                                <span style="font-family: 'Times New Roman'">{{ comment|safe }}</span>
+
+                            </div>
+                        </div>
+                        <div class="comment-content">
+                            <span style="margin-right:310px ">发表于：{{ comment.pub_time }}</span>
+                            <button class="replyComment"
+                                    style="padding:0;background-color: #F0F0F0;border: none;outline: none">
+                                <img src="{% static 'image/design/comment(5).png' %}">
+                            </button>
+                        </div>
+
+
+                        {% if comment_dict|judge_empty:comment %}
+                            <div class="reply">
+                                {% get_comment_tree comment comment_dict %}
+                            </div>
+                        {% endif %}
+                    </li>
+                {% empty %}
+                    <li style="font-family: 'Times New Roman';font-size: 25px">暂无评论</li>
+
+                {% endfor %}
+                <li style="padding: 0;margin-left: 40px;padding-bottom: 40px">
+                    {% include "comment/comment_list.html" %}
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="right-sidebar">
+        {% load_detail_sidebar_info article.author is_show is_follower %}
+    </div>
+</div>
+<div class="appeal hide">
+    <h1>投诉</h1>
+    <button onclick="cancleAppeal()" type="button" style="position: relative;left: 330px;bottom: 70px;background-color: white;border: none;outline: none">
+        <img src="{% static 'image/article/cancle.png' %}">
+    </button>
+    <form action="{% url 'appeal:submitAppeal' %}" method="post">
+        {% csrf_token %}
+        {{ appeal_form.appealed_article }}
+        <table style="margin-bottom: 30px">
+            <tr style="height: 40px">
+                <td>{{ appeal_form.appeal_options.1 }}</td>
+                <td>{{ appeal_form.appeal_options.2 }}</td>
+                <td>{{ appeal_form.appeal_options.3 }}</td>
+            </tr>
+            <tr style="height: 40px">
+                <td>{{ appeal_form.appeal_options.4 }}</td>
+                <td>{{ appeal_form.appeal_options.5 }}</td>
+                <td>{{ appeal_form.appeal_options.6 }}</td>
+            </tr>
+        </table><br/>
+        {{ appeal_form.appeal_body }}
+        <button type="submit" style="margin-top: 20px;width: 300px;height: 40px;border-radius: 100px;border: none;background-color: darkorange;color: white">提交</button>
+    </form>
+</div>
+<script src="{% static 'jquery/jquery-3.3.1.js' %}"></script>
+<script src="{% static 'propper/popper-1.14.4.js' %}"></script>
+<script src="{% static 'js/artcle_detal.js' %}"></script>
+<script src="{% static 'js/sidebar.js' %}"></script>
+<!-- 引入bootstrap的js文件 -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+   <script>
+            $(".django-ckeditor-widget").removeAttr('style');
+        </script>
+</body>
+</html>

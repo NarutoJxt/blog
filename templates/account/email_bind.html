@@ -1,0 +1,30 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../static/css/login.css" rel="stylesheet">
+    <link href="{% static 'css/register.css' %}">
+    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
+     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}" />
+</head>
+<body>
+    <div id="background">
+        <div class="card-signin">
+                <h2 class="form-signin-heading text-center">bind your email</h2>
+                <form action="{% url 'oauth:bindEmail'  2 %}" method="post" class="form-horizontal" id="form"  >
+                    {% csrf_token %}
+                   {{ form.email }}
+                    {{ form.email.errors }}
+                    <input type="hidden" name="oauthid" value="{{ oauthid }}">
+                    <span class="error_font">{{ error_message }}</span>
+                    <br />
+                    <button type="submit" class="btn-primary btn-wd">确定</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

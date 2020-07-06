@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="article">
+    {% block article %}
+        <h4 style="color: red">{{ error_message }}</h4>
+        <form action="{% url 'blog:editArticle' %}" method="post">
+        {% csrf_token %}
+         <div class="form-group">
+             <label for="recipient-name" class="control-label">标题:</label>
+                {{ form.title }}
+         </div>
+        <div class="form-group">
+            <label for="message-text" class="control-label">内容</label>
+            {{ form.media }}
+            {{ form.body }}
+        </div>
+            <div class="form-group">
+                <label for="message-text" class="control-label">状态:</label>
+                      {{ form.status }}
+            </div>
+
+         <button style="position: center;left: 35%;margin: 20px 0 20px 0" type="submit" class="btn btn-info">保存</button>
+        <button style="position: center;left: 35%;" type="reset" class="btn btn-info">重置</button>
+        </form>
+        {% endblock article %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../static/css/login.css" rel="stylesheet">
+    <link href="{% static 'css/register.css' %}">
+    <script type="text/javascript" src="{% static 'js/register.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}"/>
+</head>
+<body>
+<div id="background">
+    <div class="card-signin">
+        <h2 class="form-signin-heading text-center">Sign in with your Account</h2>
+        <form action="{% url 'account:register' %}" method="post" enctype="multipart/form-data" class="form-horizontal"
+              id="form">
+            {% csrf_token %}
+            <img class="img-circle profile-img" id="showImg" src="{% static 'image/login/avatar.png' %}" alt="">
+            {{ form.head_image }}
+            <div class="form-group">
+                <label class="lable-font">用户名</label>
+                {{ form.username }}
+                <br />
+                <label class="lable-font">邮箱</label>
+                {{ form.email }}
+                <br />
+                <label class="lable-font">密码</label>
+                {{ form.password1 }}
+                <br/>
+                <label class="lable-font">再次输入密码</label>
+                {{ form.password2 }}
+                <br/>
+            </div>
+            <br/>
+            {% if  form.errors.username %}
+               {{  form.errors.username }}
+                {% elif form.errors.email %}
+                {{ form.errors.email }}
+                {% elif form.errors.password2 %}
+                {{ form.errors.password2 }}s
+                {% elif form.error_messages.email %}
+                <ul class="errorlist">
+                <li>{{ form.error_messages.email }}</li>
+                </ul>
+
+            {% endif %}
+
+        <button type="submit" class="btn-primary btn-wd">提交</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

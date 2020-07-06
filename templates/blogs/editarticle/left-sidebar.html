@@ -1,0 +1,52 @@
+{% load static %}
+{% load blog_tags %}
+    <span id="get" style="display: none">
+        {{ key }}
+    </span>
+<ul>
+
+    <li>
+    <div class="avatar">
+        {% if img_path %}
+            <img class="img-circle" style="border-radius: 100%" width="140px" height="140px" id="avatar-img"
+                 src="{{ img_path }}" alt="">
+        {% else %}
+            <img class="img-circle profile-img" width="60px" height="100px" id="avatar-img"
+                 src="{% static 'image/login/avatar.png' %}" alt="">
+        {% endif %}
+    </div>
+    <div id="avatar-name">
+        <span>
+            {{ user.username }}
+        </span>
+    </div>
+    <div id="avatar-info">
+        <ul>
+            <li>关注: {{ user.user.count  }}</li>
+            <li>粉丝: {{ user.follower.count }}</li>
+        </ul>
+    </div>
+    </li>
+<li class="change-back" onclick="changeBackground(this)">
+    <a href="{% url 'blog:index' %}">
+        首&nbsp;&nbsp;&nbsp;&nbsp;页
+    </a>
+</li>
+<li class="change-back">
+        <a href="{% url 'blog:editArticle' %}">
+              编辑文章
+        </a>
+    </li>
+<li class="change-back">
+        <a href="{% url 'blog:manageArticle' %}">
+             文章管理
+        </a>
+    </li>
+<li class="change-back">
+        <a href="{% url 'account:get_base_info' user.pk %}">基础设置</a></li>
+<li class="change-back">
+        <a href="{{  user.get_info_url }}">个人资料</a></li>
+<li>
+    <a href="{% url 'blog:refresh' %}">清除缓存</a>
+</li>
+</ul>

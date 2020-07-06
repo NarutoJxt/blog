@@ -1,0 +1,104 @@
+{% extends "base/base.html" %}
+{% load blog_tags %}
+{% load static %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/jquery.slideBox.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.slideBox.min.js' %}"></script>
+    <script src="{% static 'js/slideshow.js' %}"></script>
+    <script src="{% static 'js/sidebar.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/mainblog/index.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="left">
+        <div class="article">
+            {% block article %}
+                <ul class="article-ul">
+                    <li style="margin-left: 300px">
+                        <div id="demo1" class="slideBox">
+                            <ul class="items">
+                                {% for header in headers %}
+                                <li><a href="{{ header.get_absolute_url }}" title="{{ header.title|truncatechars:15 }}"><img
+                                     style="min-width:500px"   src="{% if header.body|get_img %}{{ header.body|get_img }}{% else %} {% static 'image/blog/article_index/empty.gif' %}{% endif %}"></a></li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li style="border: none;">
+                        <div class="article-main-body">
+                            <ul>
+                                {% for article in object_list %}
+                                    <li>
+                                        <div class="article-left-person">
+                                            <ul>
+                                                <li>
+                                                    <div class="article-header-person">
+                                                        <a href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:30 }}</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="article-body-person">
+                                                        <p>
+                                                            {{ article.body|get_text|truncatechars:70|safe }}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="article-footer-person">
+                                                        <ul>
+                                                            <li>
+                                                                <img src="{% static 'image/design/article_collectio.png' %}"
+                                                                     style="padding-left: 0">
+                                                                <span> {{ article.comment_set.count }}</span>
+                                                            </li>
+                                                            <li>
+                                                                <img src="{% static 'image/design/点赞 (5).png' %}"> {{ article.thumb_up }}
+                                                            </li>
+                                                            <li>
+                                                                <img src="{% static 'image/design/评论 (3).png' %}">
+                                                                <span> {{ article.comment_set.count }}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="article-right-person">
+                                            {% if article.body|get_img %}
+                                                <img src=" {{ article.body|get_img }}"
+                                                     width="250px"/>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                <li class="load-btn">
+                                    {% if page_obj.has_next %}
+                                        <button class="load-btn" type="button"
+                                                style="background-color: darkorange;width: 90%;height: 50px;
+                                border-radius: 40px;margin-left: 30px;color: white;border: none"
+                                                onclick="loadMore({{ page_obj.next_page_number }},this,'')">
+                                            加载更多
+                                        </button>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            {% endblock article %}
+
+        </div>
+    </div>
+    <script src="{% static 'js/index.js' %}"></script>
+
+{% endblock content %}
+{% block sidebar %}
+    <div class="right">
+        {% load_sidebar_info request.user %}
+
+    </div>
+{% endblock sidebar %}
+
+

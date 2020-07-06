@@ -1,0 +1,160 @@
+{% load static %}
+{% load notifications_tags %}
+{% notifications_unread as unread_count %}
+{% load cache %}
+
+<header class="headers">
+    <nav class="navbar navbar-default"
+         style="width: 100%;background-color: white;height: 100px;padding-top: 30px;border-bottom-style: groove">
+
+        <div class="container-fluid">
+
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <h1 style="margin-right: 100px;font-size: 50px;color: #FF6633;font-family:'Comic Sans MS">笔映</h1>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="title-font">
+                        <a style="border: none" href="{% url 'blog:index' %}">
+                            首页
+                        </a>
+                    </li>
+                    <li class="title-font">
+                        <a style="border: none" href="{% url 'account:friend_loop' %}">朋友圈 <span
+                                class="sr-only">(current)</span></a></li>
+                    <li class="title-font">
+                        <div class="btn-group" style="margin-top: 3px">
+                            <button style="border: none;outline: none" type="button"
+                                    class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                <span class="title-font">消息
+                                    {% if unread_count %}
+                                        <svg viewBox="0 0 8 8"
+                                             width="8px"
+                                             height="8px">
+                <circle cx="4"
+                        cy="4"
+                        r="4"
+                        fill="#ff6b6b"
+                ></circle>
+            {{ unread_count }}
+            </svg>
+                                    {% endif %}
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li style="color: darkorange">
+                             <a href="{% url 'notice:show' %}?type=comment">
+                    <img src="{% static 'image/notice/comment.png' %}"> &nbsp;评论
+                </a>
+
+                                </li>
+                                <li style="color: darkorange">
+                                         <a href="{% url 'notice:show' %}?type=attention">
+                    <img src="{% static 'image/notice/attentiion.png' %}"> &nbsp;关注
+                </a>
+                                </li>
+                                <li style="color: darkorange">
+                                     <a href="{% url 'notice:show' %}?type=collection">
+                    <img src="{% static 'image/notice/collection.png' %}"> &nbsp;收藏
+                </a>
+
+                                </li>
+                                <li style="color: darkorange">
+                                    <a href="{% url 'notice:show' %}?type=appeal">
+                    <img src="{% static 'image/notice/appeal.png' %}"> &nbsp;投诉
+                </a>
+
+                                </li>
+                                <li style="color: darkorange">
+                                   <a href="{% url 'notice:show' %}?type=other">
+                    <img src="{% static 'image/notice/other.png' %}"> &nbsp;其他
+                </a>
+
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <form role="search" class="navbar-form navbar-left" method="get"
+                              action="{% url 'blog:search' %}">
+                            <div class="container" style="position: relative;left: 20px;top: -40px">
+                                {{ form.q }}
+                                <button type="submit" class="search"></button>
+                            </div>
+
+                        </form>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="title-font" style="position: relative;top: -2.4px">
+                        <a style="border: none" href="{% url 'blog:editArticle' %}"> <span
+                                class="glyphicon glyphicon-plus" aria-hidden="true">
+                       写文章
+                    </span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="btn-group">
+                            <button style="border: none;outline: none" type="button"
+                                    class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                {% if img_path and request.user.username != 'root'%}
+                                    <img style="border-radius: 60px" width="80px" height="40px" id="showImg"
+                                         src="{{ img_path }}" alt="">
+                                {% else %}
+                                    <img class="img-circle profile-img" width="60px" height="100px" id="showImg"
+                                         src="{% static 'image/login/avatar.png' %}" alt="">
+                                {% endif %}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                 <li>
+                                    <a href="{% url 'blog:person' %}">
+                                        我的主页
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="{% url 'blog:manageArticle' %}">
+                                        文章管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'account:get_base_info' user.pk %}">基础设置</a></li>
+
+                                </li>
+                                <li>
+                                    <a href="{{ user.get_info_url }}">个人资料</a></li>
+
+                                </li>
+                                {% if user %}
+                                    <li><a href="{% url 'account:logout' %}">注销</a></li>
+                                {% else %}
+                                    <li><a style="border: none"
+                                           href="{% url 'account:login' %}">登陆</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>

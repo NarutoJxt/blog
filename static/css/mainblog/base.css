@@ -1,0 +1,18 @@
+.main-container {
+    width: 100%;
+    height: auto;
+}
+
+.article{
+    height: auto;
+}
+
+.title-font {
+    font-family: "Segoe MDL2 Assets";
+    font-size: 20px;
+}
+.dropdown-menu > li{
+    padding: 20px;
+    border: none;
+    color: darkorange;
+}

@@ -1,0 +1,168 @@
+.base-info{
+    position: absolute;
+    left: 40%;
+    top: 20%;
+    height: 100%;
+}
+.base-info>form>table>thead>tr>th,.base-info>form>table>tbody>tr>td{
+    padding-bottom: 50px;
+    padding-right: 100px;
+    font-size:20px;
+    font-family:  "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
+    color: #989898;
+}
+.base-info>form>table>thead>tr>th{
+    padding-bottom: 40px;
+}
+#id_is_access>li,#id_reveiver_area>li{
+    list-style: none;
+    padding-right: 20px;
+    float: left;
+    font-size: 20px;
+    font-family:  Arial,Helvetica,sans-serif;
+    color: #585858;
+}
+.email-btn,.pwd-btn{
+    width: 100px;
+    height: 40px;
+    color: darkorange;
+    background-color: white;
+    border-radius: 30px;
+    border: darkorange;
+    border-width: 2px;
+    border-style: solid;
+    outline: none;
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 15px;
+}
+.email-btn>a{
+    color:darkorange ;
+    text-decoration-line: none;
+}
+.base-btn{
+        background-color: darkorange;
+    border-radius: 50px;
+    border-color: darkorange;
+    width: 200px;
+    height: 70px;
+    color: white;
+}
+
+#email,#bind_email{
+    width: 550px;
+    height: 500px;
+    z-index: 3;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 10px 0 5px -1px  #F8F8F8 ,-10px 0px 5px -1px  #F8F8F8,0px 10px 5px -1px  #F8F8F8,0px -10px 5px -1px  #F8F8F8;
+}
+#email{
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    margin-left: -200px;
+    margin-top: -150px;
+}
+#bind_email{
+    position: fixed;
+    top: 25%;
+    left: 30%;
+}
+.bind-cancel{
+    position: relative;
+    left: 480px;
+    top: -280px;
+    background-color: white;
+    border: none;
+    outline: none;
+}
+#email>form{
+    margin-top: 100px;
+}
+#form-title,#bind-title{
+    width: 100%;
+    padding: 20px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+}
+#form-instruction{
+    padding-top: 4px;
+    font-size: 20px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Segoe UI Symbol", "Android Emoji", EmojiSymbols;
+    color: lightgrey;
+}
+#form-msg{
+    font-size: 25px;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Segoe UI Symbol", "Android Emoji", EmojiSymbols;
+    color: black;
+    margin-top: 10px;
+    margin-left: 70px;
+}
+#form-body{
+    position: relative;
+    top: 50px;
+}
+#email_check,.email-input{
+    height: 60px;
+    width: 500px;
+    margin-left: 25px;
+  background-color: #E8E8E8;
+}
+.email-input{
+    outline: none;
+    border: none;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 20px;
+}
+#email_check>input{
+    height: 60px;
+    width: 350px;
+    border: none;
+    outline: none;
+    background-color: #E8E8E8;
+    padding-left: 20px;
+    font-size: 20px;
+}
+
+#email_check>button{
+    height: 45px;
+    width: 140px;
+    border:none;
+    outline: none;
+    background-color: #31b0d5;
+    color: white;
+    border-radius: 80px;
+
+}
+#confirm-code,#confirm-email{
+    width: 450px;
+    height: 60px;
+    border-radius: 100px;
+    background-color: #31b0d5;
+    outline: none;
+    border:none;
+
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Segoe UI Symbol", "Android Emoji", EmojiSymbols;
+    color: white;
+    font-size: 20px;
+}
+#confirm-code{
+        margin-top: 40px;
+    margin-left: -20px;
+}
+#confirm-email{
+    margin-left: 50px;
+    margin-bottom: 40px;
+}
+.cancel{
+    position: relative;
+    top: -380px;
+    left: 500px;
+    background-color: white;
+    border: none;
+    outline: none;
+}

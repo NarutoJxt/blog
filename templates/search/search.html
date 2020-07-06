@@ -1,0 +1,138 @@
+{% extends 'base/base.html' %}
+{% load highlight %}
+# Highlight summary with default behavior.
+{% highlight result.summary with query %}
+
+# Highlight summary but wrap highlighted words with a div and the
+# following CSS class.
+{% highlight result.summary with query html_tag "div" css_class "highlight_me_please" %}
+
+# Highlight summary but only show 40 words.
+{% highlight result.summary with query max_length 40 %}
+{% load static %}
+{% load blog_tags %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/mainblog/search.css' %}">
+{% endblock %}
+{% block content %}
+    {% block left %}
+    {% endblock %}
+    {% block right %}
+        <div class="search-raside">
+            <h2 style="margin-top: 60px">搜索结果</h2><br/>
+            {% if query %}
+                {% if object_list %}
+                    <div id="search-user">
+                        <ul>
+                            {% if users %}
+                                <h3 style="margin-bottom: 40px;margin-top: 20px">用户</h3>
+                                {% for user in users %}
+                                    <li>
+                                        <img height="160px" style="max-width: 12.5%;border: none"
+                                             id="showImg" src="{{ user.object.head_path|toString }}" alt="">
+                                        <a class="user-name"
+                                           href="{% url 'blog:person' %}?username={{ user.object.username }}">{{ user.object.username }}</a>
+                                        {% if user.object.username != request.user.username %}
+                                        {% if user.object not in followers %}
+                                            <button type="button" onclick="addAttention(this)"
+                                                    id="{{ user.object.username|connect:"-follow" }}"
+                                                    style="background-color: darkorange;color: white;z-index:2;float:right;margin-top:20px;border-radius:40px;height:50px;width: 160px">
+                                                <img src="{% static 'image/search/search-attention.png' %}">
+                                                <i>关注</i>
+                                            </button>
+                                        {% else %}
+                                            <button type="button" onclick="addAttention(this)"
+                                                    id="{{ user.object.username|connect:"-follow" }}"
+                                                    style="background-color: darkorange;color: white;float:right;margin-top:20px;border-radius:40px;height:50px;width: 160px">
+                                                <img src="{% static 'image/search/search-success.png' %}">
+                                                <i>已关注</i>
+                                            </button>
+                                        {% endif %}
+                                    {% endif %}
+                                        <p style="margin-left: 110px;margin-top: -10px">
+                                            收藏文章{{ user.object.collection.count }}篇
+                                            &nbsp;
+                                            发表文章{{ user.object.article.count }}篇 &nbsp;
+                                            {{ user.object.follower.count }}个粉丝
+                                        </p>
+                                    </li>
+                                {% endfor %}
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <div id="search-article">
+
+                        {% if articles %}
+                            <h3>文章</h3>
+                            <ul>
+                                {% for article in articles %}
+                                    <li>
+                                        <div class="article-left-person">
+                                            <ul>
+                                                <li>
+                                                    <div class="article-header-person">
+                                                        <a href="{{ article.object.get_absolute_url }}">{{ article.title }}</a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="article-body-person">
+                                                        <p>
+                                                            {{ article.object.body|get_text|truncatechars:70|safe }}
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="article-footer-person">
+                                                        <ul>
+                                                            <li>
+                                                                <img src="{% static 'image/design/article_collectio.png' %}"
+                                                                     style="padding-left: 0">
+                                                                <span> {{ article.object.comment_set.count }}</span>
+                                                            </li>
+                                                            <li>
+                                                                <img src="{% static 'image/design/点赞 (5).png' %}"> {{ article.object.thumb_up }}
+                                                            </li>
+                                                            <li>
+                                                                <img src="{% static 'image/design/评论 (3).png' %}">
+                                                                <span> {{ article.object.comment_set.count }}</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="article-right-person">
+                                            {% if article.body|get_img %}
+                                                <img src=" {{ article.object.body|get_img }}" style="max-width: 250px"
+                                                     width="250px"/>
+                                            {% endif %}
+                                        </div>
+                                    </li>
+
+
+                                {% endfor %}
+                            </ul>
+                            </div>
+
+                        {% endif %}
+                    </div>
+                    <div class="page-bottom">
+                              {% if page_obj.has_previous or page_obj.has_next %}
+                <div>
+                    {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}&laquo; 上一页{% if page_obj.has_previous %}</a>{% endif %}
+                    |
+                    {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">{% endif %}下一页 &raquo;{% if page_obj.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+                    </div>
+                {% else %}
+                    <div class="results-empty">
+                        无相应的搜索结果
+                    </div>
+                {% endif %}
+            {% endif %}
+
+        <script src="{% static 'js/search.js' %}"></script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'blogs/editarticle/editArticle.html' %}
+{% load static %}
+{% load blog_tags %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/edit_article/article_manager.css' %}">
+{% endblock %}
+{% block letf-sidebar %}
+    <div class="left-sidebar">
+        {% load_person_info request.user 2 %}
+    </div>
+{% endblock %}
+{% block right %}
+    <div class="article-manager-header">
+        <h3> 全部文章</h3>
+    </div>
+          <div class="dropdown" style="position: absolute;right: 180px;top: 50px;z-index: 2" >
+        <button id="dLabel" style="height: 30px;font-size: 20px" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            过滤选项
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dLabel">
+            <li>
+                <a href="{% url 'blog:manageArticle' %}?type=1">按时间排序</a>
+            </li>
+            <li>
+                <a href="{% url 'blog:manageArticle' %}?type=2">按时间升序</a>
+            </li>
+            <li>
+                <a href="{% url 'blog:manageArticle' %}?type=3">按点赞数降序</a>
+            </li>
+                <li>
+                <a href="{% url 'blog:manageArticle' %}?type=4">按点赞数升序</a>
+            </li>
+              <li>
+                <a href="{% url 'blog:manageArticle' %}?type=5">按阅读量降序</a>
+            </li>
+                 <li>
+                <a href="{% url 'blog:manageArticle' %}?type=6">按阅读量升序</a>
+            </li>
+        </ul>
+    </div>
+    {% if object_list %}
+        <div class="article-manager">
+            <ul>
+                {% for article in object_list %}
+                    <li>
+                        <div class="article-left-person">
+                            <ul>
+                                <li>
+                                    <div class="article-header-person">
+                                        <a href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:30 }}</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="article-body-person">
+                                        <p>
+                                            {{ article.body|get_text|truncatechars:100|safe }}
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="article-footer-person">
+                                        <ul>
+                                            <li>
+                                                <img src="{% static 'image/design/article_collectio.png' %}"
+                                                     style="padding-left: 0">
+                                                <span class="icon-collection"> {{ article.comment_set.count }}</span>
+                                            </li>
+                                            <li>
+                                                <img src="{% static 'image/design/点赞 (5).png' %}"> {{ article.thumb_up }}
+                                            </li>
+                                            <li>
+                                                <img src="{% static 'image/design/评论 (3).png' %}">
+                                                <span class="icon-comment"> {{ article.comment_set.count }}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="article-right-person">
+                            {% if article.body|get_img %}
+                                <img src=" {{ article.body|get_img }}" width="250px"
+                                     class="img-rounded"/>
+                            {% endif %}
+                            <!-- Single button -->
+                            {% if article.body|get_img %}
+                                <div class="btn-group dropdown2">
+                                    <button type="button" id="dropdown" onclick="keppBackground(this)"
+                                            class="btn btn-default dropdown-toggle drop-btn2 " data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <img src="{% static 'image/blog/artice_manager/dropdown.png' %}"/>
+                                    </button>
+                                    <ul class="dropdown-menu" style="   width: 90px;">
+                                        <li>
+                                            <a href="{% url 'blog:updateArticle' article.pk %}?pk={{ article.pk }}&type=update">编辑文章</a>
+                                        </li>
+                                        <li><a href="{% url 'blog:updateArticle' article.pk %}?type=remove">删除文章</a>
+                                        </li>
+                                        {% if article.status == "e" %}
+                                            <li><a href="{% url 'blog:updateArticle' article.pk %}?type=draw">加入草稿箱</a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'blog:updateArticle' article.pk %}?type=express">发表</a>
+                                            </li>
+                                        {% endif %}                                    </ul>
+                                </div>
+                            {% else %}
+                                <div class="btn-group dropdown1">
+                                    <button type="button" id="dropdown" onclick="keppBackground(this)"
+                                            class="btn btn-default dropdown-toggle drop-btn1 " data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                        <img src="{% static 'image/blog/artice_manager/dropdown.png' %}"/>
+                                    </button>
+                                    <ul class="dropdown-menu" style="   width: 90px;">
+                                        <li>
+                                            <a href="{% url 'blog:updateArticle' article.pk %}?pk={{ article.pk }}&type=update">编辑文章</a>
+                                        </li>
+                                        <li><a href="{% url 'blog:updateArticle' article.pk %}?type=remove">删除文章</a>
+                                        </li>
+                                        {% if article.status == "e" %}
+                                            <li><a href="{% url 'blog:updateArticle' article.pk %}?type=draw">加入草稿箱</a>
+                                            </li>
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'blog:updateArticle' article.pk %}?type=express">发&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if page_obj.has_previous or page_obj.has_next %}
+                <div style="position: relative;left: 40%;margin-top: 40px;font-size: 20px;">
+                    {% if page_obj.has_previous %}<a href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">{% endif %}&laquo; 上一页{% if page_obj.has_previous %}</a>{% endif %}
+                    |
+                    {% if page_obj.has_next %}<a href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">{% endif %}下一页 &raquo;{% if page_obj.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="article-manager-empty">
+            您还没有发表文章，点击这里<a href="{% url 'blog:editArticle' %}">这里</a>
+            写下你的随笔吧！
+        </div>
+    {% endif %}
+{% endblock %}
+{% block footer %}
+    <script src="{% static 'js/arrticle_manager.js' %}">
+
+    </script>
+{% endblock %}

@@ -1,0 +1,81 @@
+
+body{
+    background-origin: content-box;
+    background-image: url("../image/login/shanshui_jingse-009.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+ul>li,errorlist>li{
+    list-style: none;
+    float: left;
+}
+.errorlist>li{
+        color: red;
+    font-size: 15px;
+}
+ul>li{
+        padding: 15px;
+}
+#form{
+    background-color:#f7f7f7;
+    border: black;
+    border-width: 1px;
+    border-left-style: dot-dash;
+    border-right-style: dot-dash;
+    border-top-style: dot-dash;
+    border-bottom-style: groove;
+    border-bottom-color: #f7f7f7;
+    position: absolute;
+    left: 38%;
+    top: 25%;
+    right:40% ;
+    padding: 80px 40px 100px 40px;
+    width: 30em;
+
+}
+.card {
+  width: 304px;
+  padding: 20px 25px 30px;
+  margin: 0 auto 25px;
+  background-color: #f7f7f7;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, .3);
+}
+.card-signin {
+  width: 354px;
+  padding: 40px;
+}
+.card-signin .profile-img {
+  width: 20px;
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+}
+.btn-wd{
+    width: 26em;
+    height: 3em;
+    margin-top: 2px;
+}
+.form-signin-heading {
+    position: absolute;
+    left: 42.5%;
+    top: 14%;
+  margin: 0 0 15px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #555;
+}
+.lable-font{
+    font-family: "Bookman Old Style";
+    font-size: 20px;
+}
+.error_font{
+    font-family: "Agency FB";
+    font-size: 20px;
+    color: red;
+}
+#oauth >ul>li{
+    padding-top: 10px;
+}

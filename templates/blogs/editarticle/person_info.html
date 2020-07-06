@@ -1,0 +1,112 @@
+{% extends "blogs/editarticle/editArticle.html" %}
+{% load  static %}
+{% load blog_tags %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/edit_article/person_info.css' %}">
+{% endblock %}
+      {% block letf-sidebar %}
+            <div class="left-sidebar">
+          {% load_person_info request.user  4 %}
+            </div>
+        {% endblock %}
+{% block right %}
+    <div class="person-info">
+        <form action="{% url 'account:set_person_info' user.pk %}" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ form.pk }}
+            <div class="person-base">
+                    <table cellspacing="100">
+                    <thead>
+                        <tr>
+                            <th>
+                                {% if user.get_avatar_path  %}
+                                    <img class="img-circle" id="showImg" style="border-radius:100%" width="140"
+                                         height="140" id="showImg"
+                                         src="{{ user.get_avatar_path}}" alt="">
+                                {% else %}
+                                    <img class="img-circle profile-img" id="showImg" width="60px" height="100px"
+                                         id="showImg"
+                                         src="{% static 'image/login/avatar.png' %}" alt="">
+                                {% endif %}
+                            </th>
+                            <th>
+                                <button class="avatar-btn">更换头像</button>
+                                {{ form.head_path }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                用户名
+                            </td>
+                            <td>
+                                {{ form.username }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                性 &nbsp;别
+                            </td>
+                            <td>
+                                {{ form.gender }}
+                            </td>
+                            <td>
+                                {{ form.gender.error }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                个性签名
+                            </td>
+                            <td>
+                                {{ form.signature }}
+                            </td>
+                                          <td>
+                                {{ form.signature.error }}
+                            </td>
+                        </tr>
+                                 <tr>
+                            <td>
+                                生 &nbsp;日
+                            </td>
+                            <td>
+                                {{ form.birth_date }}
+                            </td>
+                                     <td>
+                                {{ form.birth_date.error }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                个人描述
+                            </td>
+                            <td>
+                                {{ form.person_instruction }}
+                            </td>
+                                          <td>
+                                {{ form.person_instruction.error }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="person-btn" type="submit">保存</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </table>
+
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+{% block footer %}
+    <script>
+        document.querySelector('.avatar-btn').addEventListener('click', function () {
+            document.querySelector('#file').click();
+        });
+    </script>
+    <script src="{% static 'js/register.js' %}"></script>
+{% endblock %}

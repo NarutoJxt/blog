@@ -1,0 +1,22 @@
+
+    <div class="comment_form">
+        <form action="{% url 'comment:postcomment' article.pk  %}" method="post" class="center-form">
+           {% csrf_token %}
+            <span>
+                {{ form.errors }}
+                {{ form.body.label_tag }}
+                {{ form.media }}
+                {{ form.body }}
+            </span>
+            <span>
+                <input type="hidden" name="article" value="{{ article.pk }}">
+            </span>
+            <span>
+                {{ form.parent_comment }}
+            </span>
+            <spa>
+                {{ form.author }}
+            </spa>
+            <input type="submit"  class="comment-btn" value="发表评论"/>
+        </form>
+    </div>

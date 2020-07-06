@@ -1,0 +1,59 @@
+{% load static %}
+{% load blog_tags %}
+<div class="side">
+    <div class="author">
+        <ul>
+            <li class="author-self">
+            <img style="border-radius: 70%" class="img-circle profile-img"    width="80" height="100px" id="showImg" src="{{  user_image|toString }}" alt="">
+            <a class="author-name" style="color: black" href="{{ author.get_absolute_url }}?username={{ author.username }}">{{ author.username}}</a>
+                <br />
+                {% if is_show %}
+                    {% if not is_follower %}
+            <a class="author-follow" id="{{ author.username|connect:"-follow" }}" style="margin-left: 60px;text-decoration-line: none;color: orangered">
+                <img src="{% static 'image/design/attention.png' %}">
+                <i>关注</i>
+            </a>
+                        {% else %}
+             <a class="author-follow" style="margin-left: 60px;text-decoration-line: none;color: orangered" id="{{ author.username|connect:'-follower' }}">
+                <img  src="{% static 'image/design/attented.png' %}">
+                <i>已关注</i>
+            </a>
+                        {% endif %}
+                {% endif %}
+        </li>
+            {% for article in user_article_list %}
+                <li><ul class="side-bar-recommended">
+                        <li>
+                            <a style="color:#404040;text-decoration-line: none;text-wrap: avoid" href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:15 }}</a>
+                        </li>
+                        <li>
+                            <span style="color: #999999">阅读：{{ article.views }}</span>
+                        </li>
+                    </ul>
+                </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div class="re-article">
+
+        <ul>
+            <li style="font-size: 30px;padding: 10px;margin: 10px"><img src="{% static 'image/design/阅读.png' %}"> 推荐文章
+            </li>
+            {% for article in recommended_list %}
+                <li>
+                    <ul class="side-bar-recommended">
+                        <li>
+                            <a style="color:#404040;text-decoration-line: none;"
+                               href="{{ article.get_absolute_url }}">{{ article.title|truncatechars:15 }}</a>
+                        </li>
+                        <li>
+                            <span style="color: #999999">阅读：{{ article.views }}</span>
+                        </li>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+</div>

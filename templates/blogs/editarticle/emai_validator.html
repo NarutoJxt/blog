@@ -1,0 +1,26 @@
+{% load static %}
+        <div id="bind-title">
+            <h2>绑定邮箱</h2>
+        </div>
+        <div class="bind-form">
+                 <span style="color: red;font-size: 20px;visibility: hidden;position: relative;left: 100px;top: 40px"
+                       id="code-email-error">
+                 </span>
+            <form>
+                {% csrf_token %}
+                <span id="code-email-error" style="visibility: hidden">
+
+                </span>
+                <input type="email" name="email" placeholder="请输入邮箱" class="email-input">
+                <div id="email_check">
+                    <input type="text" name="code" placeholder="验证码" class="email-code-form">
+                    <button type="button" id="send--email-code" onclick="confirm_code(this)">
+                        发送验证码
+                    </button>
+                </div>
+                <button type="button" class="bind-cancel">
+                    <img src="{% static 'image/article/cancle.png' %}">
+                </button>
+                <button id="confirm-email" type="button" οnclick="sendemail()">确定</button>
+            </form>
+        </div>

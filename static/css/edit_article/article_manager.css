@@ -1,0 +1,113 @@
+.article-manager-header{
+    position: absolute;
+    left: 30%;
+    top: 5%;
+    font-size: 30px;
+    width: 60%;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: grey;
+}
+.article-manager{
+    position: absolute;
+    left: 27%;
+    top: 15%;
+    width: 70%;
+    height: auto;
+}
+.article-manager-empty{
+    position: absolute;
+    left: 35%;
+    top: 50%;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Segoe UI Symbol", "Android Emoji", EmojiSymbols;
+    font-size: 40px;
+}
+.article-manager>ul>li{
+    padding-top: 10px;
+    padding-bottom: 1px;
+    padding-left: 20px;
+    padding-right: 20px;
+    list-style: none;
+    width: 83.6%;
+    height: 250px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: lightgrey;
+}
+.article-content-person>ul>li{
+    list-style: none;
+    padding-top: 10px;
+}
+.article-left-person>ul>li{
+    list-style: none;
+    padding-top: 10px;
+}
+.article-left-person>ul>li:first-child{
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+.article-right-person{
+    margin-left: 70%;
+    margin-top: -160px;
+}
+.article-header-person>a{
+    font-family: -apple-system,SF UI Display,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+    font-size: 25px;
+    color: black;
+}
+.article-body-person>p{
+    width: 60%;
+    text-align: justify;
+    line-height: 25px;
+    font-size: 17px;
+}
+.article-body-person>img{
+    position: absolute;
+    left: 70%;
+    top: -60px;
+    padding-right: 0;
+    margin-right: 0;
+}
+.article-footer-person{
+    width: 60%;
+    height: 20px;
+    position: relative;
+    left: -35px;
+}
+.article-footer-person>ul>li{
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    font-size: 18px;
+}
+.article-footer-person>ul>li:last-child{
+    padding-bottom: 10px;
+}
+.dropdown2{
+    position: relative;
+    bottom: 170px;
+    left: 290px;
+}
+.dropdown1{
+    position: relative;
+    left: 290px;
+    bottom: 5px;
+}
+.drop-btn2,.drop-btn1
+{
+    border: none;
+    outline: none;
+    padding: 0;
+    background-color: white;
+}
+.drop-btn1:hover,.drop-btn2:hover{
+    background-color: lightgrey;
+}
+
+.dropdown-menu>li{
+    font-size: 15px;
+    font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;;
+}
+.dropdown-menu>li:hover{
+    background-color: lightgrey;
+}

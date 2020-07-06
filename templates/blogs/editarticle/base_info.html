@@ -1,0 +1,191 @@
+{% extends "blogs/editarticle/editArticle.html" %}
+{% load  static %}
+{% load account_tags %}
+{% load blog_tags %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/edit_article/base_info.css' %}">
+{% endblock %}
+      {% block letf-sidebar %}
+            <div class="left-sidebar">
+          {% load_person_info request.user  3 %}
+            </div>
+        {% endblock %}
+{% block right %}
+    <div class="base-info">
+
+        <form action="{% url 'account:get_base_info' request.user.pk %}" method="post">
+            {% csrf_token %}
+            <table>
+                <thead>
+                <tr>
+                    <th>
+                        基础设置
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>允许访问我的主页</td>
+                    <td>{{ form.is_access }}</td>
+
+                </tr>
+                <tr>
+                    <td>允许谁看我的动态</td>
+                    <td>{{ form.reveiver_area }}</td>
+
+                </tr>
+                <tr>
+                    <td>电子邮箱</td>
+                    <td>
+                        {{ user.email }}
+                        <button class="email-btn" type="button">修改邮箱</button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>密码</td>
+                    <td>
+                        <button class="pwd-btn" type="button">
+                            <a  style="color: darkorange;text-decoration: none;" href="{% url 'account:modify_pwd' %}?type=show">
+                                  修改密码
+                            </a>
+
+                        </button>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <button class="base-btn" type="submit">保存</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+
+     <div id="email" class="hidden">
+        <div id="form-title">
+            <h2>修改邮箱</h2>
+          </div>
+        <div id="form-instruction">
+            <span>
+                为了您账户的安全，修改邮箱需要验证您自己的邮箱。验证成功后将进行下一步操作，验证码十分钟内有效。
+            </span>
+        </div>
+        <div id="form-msg">
+            用邮箱{{ user.email|cover_email }}验证
+        </div>
+        <span style="color: red;font-size: 20px;visibility: hidden;position: relative;left: 100px;top: 40px" id="code-error">
+                </span>
+        <div id="form-body">
+            <form>
+                {% csrf_token %}
+                <div id="email_check">
+                    <input type="email" placeholder="验证码" class="form">
+                    <button type="button" id="send-code" onclick="confirm_email(this)">
+                        发送验证码
+                    </button>
+                </div>
+
+                <button type="button" class="cancel">
+                    <img src="{% static 'image/article/cancle.png' %}">
+                </button>
+
+                <button id="confirm-code" type="button">确定</button>
+            </form>
+        </div>
+
+    </div>
+    <div id="bind_email" class="hidden">
+    {% include 'blogs/editarticle/emai_validator.html' %}
+    </div>
+{% endblock %}
+{% block footer %}
+    <script src="{% static 'js/base_info.js' %}">
+    </script>
+    <script type="text/javascript">
+        var countdown = 60;
+
+        function send_email_code() {
+            let host = window.location.host;
+            url = "http://" + host + "/account/get_code/";
+            email = $(".email-input").val();
+            csrf = $(".bind-form").children("form").children("input")[0];
+            csrf = $(csrf).val();
+            data = {
+                "email": email,
+                "csrfmiddlewaretoken": csrf
+            };
+            $.post(url, data, function (data, status) {
+                $("#confirm-email").click(
+                    function () {
+                        var1 = String($(".email-code-form").val());
+                        var2 = String(data["code"]);
+                        if (var1 == var2) {
+                            url = "http://" + host + "/account/update_email/";
+                            data = {
+                                "email": email
+                            }
+                            $.get(url, data, function (data, status) {
+                                if(data["error"]){
+                                    $("#code-email-error").css("visibility", "visible");
+                                    $("#code-email-error").text(data["error"]);
+                                }
+                                else{
+                                      alert("绑定成功");
+                                $(location).attr('href', data["url"]);
+                                }
+
+                            });
+
+                        } else {
+                            $("#code-email-error").css("visibility", "visible");
+                            $("#code-email-error").text("验证码错误，请诚信输入")
+                        }
+                    }
+                )
+            })
+        }
+
+        function confirm_email(obj) {
+            obj = $(obj);
+            settime(obj);
+        }
+
+        function confirm_code(obj) {
+            obj = $(obj);
+            let email = $(".email-input").val();
+            var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+            if (!email) {
+                $("#code-email-error").text("邮箱不能为空");
+                $("#code-email-error").css("visibility", "visible")
+            } else if (!reg.test(email)) {
+                $("#code-email-error").css("visibility", "visible")
+                $("#code-email-error").text("邮箱格式不正确");
+            } else {
+                send_email_code();
+                settime(obj);
+            }
+        }
+
+        function settime(obj) { //发送验证码倒计时
+            if (countdown == 0) {
+                obj.attr('disabled', false);
+                //obj.removeattr("disabled");
+                obj.text("发送验证码");
+                countdown = 60;
+                return;
+            } else {
+                obj.attr('disabled', true);
+                obj.text("重新发送(" + countdown + ")");
+                countdown--;
+            }
+            setTimeout(function () {
+                    settime(obj)
+                }
+                , 1000)
+        }
+    </script>
+{% endblock %}

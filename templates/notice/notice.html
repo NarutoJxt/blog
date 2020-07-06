@@ -1,0 +1,135 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load blog_tags %}
+{% block header %}
+    <link rel="stylesheet" href="{% static 'css/attention.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notice/notice_show.css' %}">
+{% endblock %}
+{% block content %}
+    <div id="notice-type" style="display: none">{{ type }}</div>
+    <div class="aside">
+        <ul>
+            <li id="friend-loop">
+                <a href="{% url 'notice:show' %}?type=comment">
+                    <img src="{% static 'image/notice/comment.png' %}"> &nbsp;评论
+                </a>
+            </li>
+            <li id="friend-loop">
+                <a href="{% url 'notice:show' %}?type=attention">
+                    <img src="{% static 'image/notice/attentiion.png' %}"> &nbsp;关注
+                </a>
+            </li>
+            <li id="friend-loop">
+                <a href="{% url 'notice:show' %}?type=collection">
+                    <img src="{% static 'image/notice/collection.png' %}"> &nbsp;收藏
+                </a>
+            </li>
+            <li id="friend-loop">
+                <a href="{% url 'notice:show' %}?type=appeal">
+                    <img src="{% static 'image/notice/appeal.png' %}"> &nbsp;投诉
+                </a>
+            </li>
+            <li id="friend-loop">
+                <a href="{% url 'notice:show' %}?type=other">
+                    <img src="{% static 'image/notice/other.png' %}"> &nbsp;其他
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <div class="raside">
+        <div class="notice-header">
+            收到的{{ show }}
+            <a class="mark-all" href="{% url 'notice:update' %}?type={{ type }}&way=all&al_way=delete"
+               style="font-size: 20px;position: relative;left: 50%;">全部删除</a>
+            <a class="mark-all" href="{% url 'notice:update' %}?type={{ type }}&way=all"
+               style="font-size: 20px;position: relative;left: 55%;">全部标为已读</a>
+        </div>
+        <ul class="notice">
+            {% for notice in notices %}
+                <li>
+                    <img height="160px" style="max-width: 12.5%" id="showImg"
+                         src="{{ notice.actor.head_path|toString }}" alt="">
+                    {% if notice.unread %}
+                        <span style="color: gray">未读: </span>
+                    {% else %}
+                        <span style="color: gray">已读: </span>
+                    {% endif %}
+
+                    {% if show == "关注" %}
+                        <span><i style="color: darkorange">{{ notice.actor }}</i>{{ notice.verb }}
+                        <a
+                                href="{{ notice.target.get_absolute_url }}"
+                                style="color: lightseagreen">你</a>。 
+                        </span>
+                        {{ notice.timestamp|date:"Y/m/d H:i" }}
+                        <a style="margin-left: 50px"
+                           href="{% url 'notice:update' %}?type={{ type }}&way=simple&pk={{ notice.pk }}">删除</a>
+                        {% if notice.unread %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=read&pk={{ notice.pk }}">标为已读</a>
+                        {% else %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=unread&pk={{ notice.pk }}">标为未读</a>
+                        {% endif %}
+                    {% elif show == "收藏" %}
+                        <span><i style="color: darkorange">{{ notice.actor }}</i>{{ notice.verb }}文章：<a
+                                href="{{ notice.target.get_absolute_url }}"
+                                style="color: lightseagreen">{{ notice.target|truncatechars:15 }}</a></span>
+                        {{ notice.timestamp|date:"Y/m/d H:i" }}<a style="margin-left: 20px"
+                                                                  href="{% url 'notice:update' %}?type={{ type }}&way=simple&pk={{ notice.pk }}">删除</a>
+                        {% if notice.unread %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=read&pk={{ notice.pk }}">标为已读</a>
+                        {% else %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=unread&pk={{ notice.pk }}">标为未读</a>
+                        {% endif %}
+                        {% elif show == "其他" %}
+                           <span><i style="color: darkorange">{{ notice.actor }}</i>通知<a
+                                href="{{ notice.target.get_absolute_url }}"
+                                style="color: lightseagreen">你</a>{{ notice.verb }}</span>
+                        {{ notice.timestamp|date:"Y/m/d H:i" }}<a style="margin-left: 50px"
+                                                                  href="{% url 'notice:update' %}?type={{ type }}&way=simple&pk={{ notice.pk }}">删除</a>
+                        {% if notice.unread %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=read&pk={{ notice.pk }}">标为已读</a>
+                        {% else %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=unread&pk={{ notice.pk }}">标为未读</a>
+                        {% endif %}
+                        </li>
+                    {% else %}
+                        <span><i style="color: darkorange">{{ notice.actor }}</i>在<a
+                                href="{{ notice.target.get_absolute_url }}"
+                                style="color: lightseagreen">{{ notice.target|truncatechars:15 }}</a>{{ notice.verb }}</span>
+                        {{ notice.timestamp|date:"Y/m/d H:i" }}<a style="margin-left: 50px"
+                                                                  href="{% url 'notice:update' %}?type={{ type }}&way=simple&pk={{ notice.pk }}">删除</a>
+                        {% if notice.unread %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=read&pk={{ notice.pk }}">标为已读</a>
+                        {% else %}
+                            <a style="margin-left: 30px"
+                               href="{% url 'notice:update' %}?type={{ type }}&way=unread&pk={{ notice.pk }}">标为未读</a>
+                        {% endif %}
+                        </li>
+                    {% endif %}
+                {% empty %}
+                <li>暂时没有通知</li>
+            {% endfor %}
+                   {% if page_obj.has_previous or page_obj.has_next %}
+                       <li style="border: none">
+                           <div style="position: relative;left: 40%;margin-top: 40px;font-size: 20px;">
+                    {% if page_obj.has_previous %}<a href="?type={{ type }};page={{ page_obj.previous_page_number }}">{% endif %}&laquo; 上一页{% if page_obj.has_previous %}</a>{% endif %}
+                    |
+                    {% if page_obj.has_next %}<a href="?type={{ type }}&amp;page={{ page_obj.next_page_number }}">{% endif %}下一页 &raquo;{% if page_obj.has_next %}</a>{% endif %}
+                </div>
+                       </li>
+
+            {% endif %}
+        </ul>
+
+    </div>
+    <script src="{% static 'js/attention.js' %}"></script>
+    <script src="{% static 'js/notice/notice.js' %}"></script>
+{% endblock %}

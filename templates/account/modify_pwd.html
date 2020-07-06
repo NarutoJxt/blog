@@ -1,0 +1,79 @@
+
+{% load static %}
+{% load account_tags %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../static/css/login.css" rel="stylesheet">
+     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/modify_pwd.css' %}">
+</head>
+<body>
+    <div id="background">
+        <div class="email-block">
+            <div class="identy-email-instruction">
+                <h2 class="identy-email-title">
+                    验证邮箱
+                </h2>
+            <span>
+                为了您账户的安全，修改邮箱需要验证您自己的邮箱。验证成功后将进行下一步操作，验证码十分钟内有效。
+            </span>
+        </div>
+        <div class="identy-email-info">
+            用邮箱{{ user.email|cover_email }}验证<br/>
+               <span id="code-email-error" style="visibility: hidden;color: red;font-size: 20px">
+
+                    </span>
+        </div>
+            <div class="identy-email">
+                <form>
+
+                {% csrf_token %}
+                  <input type="text" placeholder="验证码" class="form">
+                    <button type="button" id="send-code" onclick="confirm_email(this)">
+                        发送验证码
+                    </button>
+                  <button id="confirm-code" type="button">确定</button>
+                    </form>
+            </div>
+        </div>
+        <div class="pwd-block" style="display: none">
+            <div class="pwd-instruction">
+                  <h2 class="identy-email-title">
+                    修改密码
+                </h2>
+                <span style="color: red;font-size: 20px;margin-left: 20px" id="pwd-error"></span>
+            </div>
+            <div class="pwd-body">
+                <form method="post" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>新密码</label>
+                        <input type="password" name="pwd1" placeholder="新密码" id="pwd1" class="pwd form-control">
+                    </div>
+
+                    <br/>
+                    <div class="form-group">
+                        <label>再次输入密码</label>
+                         <input type="password" name="pwd1" placeholder="再次输入密码" id="pwd2" class="pwd form-control">
+                    </div>
+
+                    <button type="button" id="modify-pwd">修改密码</button>
+                    <button type="button" id="cancel-pwd">取消修改</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script type="text/javascript" src="{% static 'jquery/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/modify_pwd.js' %}">
+
+</script>
+   <script src="{% static 'js/modify_pwd_jq.js' %}"></script>
+</body>
+
+
+
+</html>

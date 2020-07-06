@@ -1,0 +1,27 @@
+.aside>ul>li:hover{
+    background-color: lightgrey;
+}
+.notice{
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.notice>li{
+    height: 150px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-left: 60px;
+    border-bottom: 1px;
+    border-bottom-color: lightgrey;
+    border-bottom-style: solid;
+    font-size: 20px;
+}
+.notice-header{
+        font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+    font-size: 25px;
+    margin-left: 50px;
+    padding-bottom: 20px;
+    border-bottom: grey;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}

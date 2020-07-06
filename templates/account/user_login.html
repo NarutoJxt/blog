@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{% static '/css/login.css' %}" rel="stylesheet">
+     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}" />
+   <script src="{% static 'jquery/jquery-3.3.1.js' %}"></script>
+       <script src="{% static 'jquery/jquery.min.js' %}"></script>
+
+    <script type="text/javascript">
+
+        $.ajaxSetup({
+    data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+    }  );
+
+function changeImg(node) {
+		var opt = {
+			"showImg":node.value,
+               csrfmiddlewaretoken:$('[name="csrfmiddlewaretoken"]').val()
+		};
+		$.post("{% url 'account:showImg' %}",
+			opt,
+			function(data,status){
+				if(data["a"]) {
+					document.getElementById("chanImg")
+						.setAttribute("src",data['a']);
+				}
+			})}
+
+    </script>
+{#        <script type="text/javascript" src="{% static 'js/login.js' %}"></script>#}
+</head>
+<body>
+    <div id="background">
+        <div class="card-signin">
+                <h2 class="form-signin-heading text-center">Sign in with your Account</h2>
+                <form action="{% url 'account:login' %}" method="post" class="form-horizontal" id="form"  >
+                    {% csrf_token %}
+                    <img class="img-circle profile-img" id="chanImg"  src="{% static 'image/login/avatar.png' %}" alt="">
+                    {{ form.non_field_errors }}
+                    {% for field in form %}
+
+                        <div class="form-group">
+                        {% ifequal forloop.counter 1 %}
+                        <label class="lable-font">username</label>
+                        {% endifequal %}
+                       {% ifequal forloop.counter 2 %}
+                        <label class="lable-font" > password </label>
+                        {% endifequal %}
+                        {% ifequal forloop.counter 3 %}
+                        <label class="lable-font" > q&nbsp;&nbsp;&nbsp;&nbsp;q&nbsp;&nbsp; </label>
+                        {% endifequal %}
+                        {{ field }}
+                        <input type="hidden" name="next" value="{{ next }}" />
+                        <br />
+                        </div>
+                    {% endfor %}
+                     <div class="checkbox">
+                        <label>
+                          <input type="checkbox" value="1" name="remember"> 记住密码
+                        </label>
+                      </div>
+                    <span class="error_font">{{ error_message }}</span>
+                    <button type="submit" class="btn-primary btn-wd">提交</button>
+                    <br />
+                    <div style="padding:40px 50px 0 90px;">
+                        <a style="padding-right: 90px" href="{% url 'account:register' %}" >注册</a>
+                          <a  href="{% url 'account:re_register' %}?tyoe=find">忘记密码？</a>
+                    </div>
+                <div style="margin-left: 30px">
+                    <ul id="oauth">
+                        <li>
+                            <a href="{% url 'oauth:login' %}?type=github">
+                                <img src="{% static 'image/oauth/github.png' %}">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'oauth:login' %}?type=google">
+                                <img src="{% static 'image/oauth/google.png' %}">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
