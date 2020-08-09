@@ -1,9 +1,17 @@
 # djangoBlog
-一个自定义的django博客系统
-支持文章发表与分享
-同时具有强大的富文本编辑器，随心写出您的所想所得
-而且还支持文章的收藏于点赞功能，收藏并支持您喜爱的文章
-使用haystack于elastic搜索引擎，使搜索更快捷
-支持文章修改，删除与发表
-使用缓存memcached,session
-还支持头像上传
+一个在线博客系统，使用python的Django框架实现，实现了包括用户认证，文章管理，搜索，缓存，文本编辑等等一系列的功能。
+主要使用的技术如下：
+1.haystack+elasticsearch实现搜索
+2.redis实现缓存
+3.froala实现富文本编辑
+4.django-notifycation实现消息通知
+5.bootstrap实现前端界面
+#安装步骤
+1.pip install requirements.txt
+2.由于使用新版django，经常会出现django.utils包下找不到six模块，只需将six.py复制到utils包下即可。
+3.python manage.py makemigrations
+4.python manage.py migrate
+5. python manage.py rebuild_index
+6.python manage.py collectstatic
+7.python manage.runserver
+
