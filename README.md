@@ -6,6 +6,7 @@
 3.froala实现富文本编辑
 4.django-notifycation实现消息通知
 5.bootstrap实现前端界面
+
 #安装步骤
 1.pip install requirements.txt
 2.由于使用新版django，经常会出现django.utils包下找不到six模块，只需将six.py复制到utils包下即可。
